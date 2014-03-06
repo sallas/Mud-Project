@@ -23,7 +23,7 @@ public class RoomList
         this.monsterlist = monsterlist;
     }
 
-    public ArrayList<Room> createRooms(Monster monster)
+    public ArrayList<Room> createRooms()
     {
         ArrayList<Monster> monsterarray = monsterlist.getMonsterArray();
         Collections.shuffle(monsterarray);
