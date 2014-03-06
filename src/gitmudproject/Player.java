@@ -5,11 +5,13 @@ public class Player
     
     private int health;
     private Room currentRoom;
+    private int damage;
 
  
     public Player()
     {
         health = 100;
+        damage = 10;
     }
     
     public int getHealth()
@@ -31,6 +33,18 @@ public class Player
     {
         this.currentRoom = currentRoom;
     }
+
+    public int getDamage()
+    {
+        return damage;
+    }
+
+    public void setDamage(int damage)
+    {
+        this.damage = damage;
+    }
+    
+    
 
     
 }

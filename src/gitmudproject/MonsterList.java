@@ -1,17 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gitmudproject;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-/**
- *
- * @author Peter
- */
 
 /**
  * 
@@ -19,8 +9,6 @@ import java.util.Random;
  */
 public class MonsterList
 {
-
-    private Monster monster1, monster2, monster3, monster4, monster5;
     private ArrayList<Monster> monsterArray;
 
     public MonsterList()
@@ -37,18 +25,13 @@ public class MonsterList
         return monsterArray.get(getMonster);
     }
 
-    public void createMonsterList()
+    private void createMonsterList()
     {
         //== creating the monsters
-        monster1 = new Monster(50, 10, "Your mother");
-        monster2 = new Monster(50, 10, "monster2");
-        monster3 = new Monster(50, 10, "monster3");
-        monster4 = new Monster(50, 10, "monster4");
-        monster5 = new Monster(50, 10, "monster5");
-        monsterArray.add(monster1);
-        monsterArray.add(monster2);
-        monsterArray.add(monster3);
-        monsterArray.add(monster4);
-        monsterArray.add(monster5);
+        monsterArray.add(new Monster(50, 10, "Your mother"));
+        monsterArray.add(new Monster(50, 10, "monster2"));
+        monsterArray.add(new Monster(50, 10, "monster3"));
+        monsterArray.add(new Monster(50, 10, "monster4"));
+        monsterArray.add(new Monster(50, 10, "monster5"));
     }
 }
