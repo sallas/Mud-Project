@@ -28,7 +28,7 @@ public class GameLogic
             this.monster = monsterLogic.createRandomMonster(roomNum);
 
             room = new Room(monster);
-            System.out.println("you see: " + monster.getName() + " which has: " + monster.getHealth() + " health");
+            System.out.println("You see a " + monster.getName() + " which has " + monster.getHealth() + " health");
             if (engagetMonster(monster) != true)
             {
                 break;              // Player died
@@ -96,7 +96,11 @@ public class GameLogic
             {
                 System.out.println("\nYou died");
             }
+            else
+            {
+                System.out.println("You've got " + player.getHealth() + " health remaining\n");
+            }
         }
-        System.out.println("You've got " + player.getHealth() + " health remaining\n");
+        
     }
 }
