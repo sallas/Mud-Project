@@ -24,7 +24,7 @@ public class MonsterList
 
         return monsterArray.get(getMonster);
     }
-
+    
     private void createMonsterList()
     {
         //== creating the monsters
@@ -34,4 +34,11 @@ public class MonsterList
         monsterArray.add(new Monster(50, 10, "monster4"));
         monsterArray.add(new Monster(50, 10, "monster5"));
     }
+
+    public ArrayList<Monster> getMonsterArray()
+    {
+        return monsterArray;
+    }
+    
+    
 }
