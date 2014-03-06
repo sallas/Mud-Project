@@ -1,8 +1,11 @@
 package gitmudproject;
 
-public class GitMudProject {
-    public static void main(String[] args) {
-        
+public class GitMudProject
+{
+
+    public static void main(String[] args)
+    {
+
     }
 
 }
