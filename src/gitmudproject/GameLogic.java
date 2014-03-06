@@ -6,13 +6,13 @@ public class GameLogic
 {
     private Player player;
     private Room room;
-    private MonsterList monsterList;
+    private MonsterLogic monsterLogic;
     private Monster monster;
    
     
     public void startGame(Player player)
     {
-        monsterList = new MonsterList();
+        monsterLogic = new MonsterLogic();
         this.player = player;
         System.out.println("Welcome player");
        
@@ -21,10 +21,11 @@ public class GameLogic
     
     public void runGame()
     {
+        int roomNum=0; //just for testing 
         Scanner scan = new Scanner(System.in);
         while(player.getHealth() > 0)
         {
-            this.monster = monsterList.choseMonster();
+            this.monster = monsterLogic.createRandomMonster(roomNum);
             room = new Room(monster);
             System.out.println("you see: "+monster.getName());
             if(fightMonster(monster) != true)
@@ -32,6 +33,7 @@ public class GameLogic
             System.out.print("Would you like to move to the next room? (y/n): ");
             if("n".equalsIgnoreCase(scan.next()))
                 break;
+            roomNum++;
         }
         System.out.println("Good bye");
     }

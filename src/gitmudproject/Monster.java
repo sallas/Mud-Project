@@ -38,4 +38,6 @@ public class Monster
     {
         this.damage = damage;
     }
+    
+    
 }

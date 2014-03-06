@@ -8,8 +8,6 @@ public class Room
     {
         this.monster = monster;
     }
-    
-    
 
     public Monster getMonster()
     {
