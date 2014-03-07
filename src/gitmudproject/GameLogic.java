@@ -66,6 +66,10 @@ public class GameLogic
                         break;
                     case 2:
                         drinkPotion();
+                        if(player.getHealth() <= 0)
+                            System.out.println("\nYou died!");
+                        else
+                            attackedByMonster(monster);
                         break;
                     case 3:
                         System.out.println("That feature is not implemented");
@@ -80,6 +84,20 @@ public class GameLogic
         }
         return player.getHealth() > 0;  // return true if player is alive
     }
+    
+    private void attackedByMonster(Monster monster)
+    {
+        player.setHealth(player.getHealth() - monster.getDamage());
+        System.out.println(monster.getName() + " dealt " + monster.getDamage() + " to you");
+        if (player.getHealth() <= 0)
+        {
+            System.out.println("\nYou died");
+        }
+        else
+        {
+            System.out.println("You've got " + player.getHealth() + " health remaining\n");
+        }
+    }
 
     private void fightMonster(Monster monster)
     {
@@ -92,16 +110,7 @@ public class GameLogic
         }
         else
         {
-            player.setHealth(player.getHealth() - monster.getDamage());
-            System.out.println(monster.getName() + " dealt " + monster.getDamage() + " to you");
-            if (player.getHealth() <= 0)
-            {
-                System.out.println("\nYou died");
-            }
-            else
-            {
-                System.out.println("You've got " + player.getHealth() + " health remaining\n");
-            }
+            attackedByMonster(monster);
         }
 
     }
@@ -114,6 +123,8 @@ public class GameLogic
         int currentHP = player.getHealth();
         int potionHP = potion.getHealingpoint();
         int newHP = currentHP + potionHP;
+        if(newHP > player.getMaxHealth())
+            newHP = player.getMaxHealth();
 
         if (potionHP < 0)
         {

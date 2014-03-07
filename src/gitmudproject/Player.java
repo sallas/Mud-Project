@@ -4,13 +4,15 @@ public class Player
 {
     
     private int health;
+    private int maxHealth;
     private Room currentRoom;
     private int damage;
 
  
     public Player()
     {
-        health = 100;
+        maxHealth = 100;
+        health = maxHealth;
         damage = 10;
     }
     
@@ -42,6 +44,16 @@ public class Player
     public void setDamage(int damage)
     {
         this.damage = damage;
+    }
+
+    public int getMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth)
+    {
+        this.maxHealth = maxHealth;
     }
     
     
