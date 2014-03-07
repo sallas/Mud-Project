@@ -8,11 +8,13 @@ public class GameLogic
     private Player player;
     private Room room;
     private MonsterLogic monsterLogic;
+    private PotionLogic potionLogic;
     private Monster monster;
 
     public void startGame(Player player)
     {
         monsterLogic = new MonsterLogic();
+        potionLogic = new PotionLogic();
         this.player = player;
         System.out.println("Welcome player");
 
@@ -36,7 +38,7 @@ public class GameLogic
             System.out.print("Would you like to move to the next room? (y/n): ");
             if ("n".equalsIgnoreCase(scan.next()))
             {
-
+                break;
             }
             roomNum++; // getting the number and harder monster
             System.out.println("\n\n");
@@ -63,7 +65,7 @@ public class GameLogic
                         fightMonster(monster);
                         break;
                     case 2:
-                        System.out.println("That feature is not implemented");
+                        drinkPotion();
                         break;
                     case 3:
                         System.out.println("That feature is not implemented");
@@ -101,6 +103,32 @@ public class GameLogic
                 System.out.println("You've got " + player.getHealth() + " health remaining\n");
             }
         }
-        
+
     }
+
+    private void drinkPotion()
+    {
+        Potion potion = potionLogic.createPotion();
+        System.out.println("\nYou'are drinking "+ potion.getPotionName() );
+
+        int currentHP = player.getHealth();
+        int potionHP = potion.getHealingpoint();
+        int newHP = currentHP + potionHP;
+
+        if (potionHP < 0)
+        {
+            System.out.println("It was a poisoned potion! You've lost " + potionHP + " health!  \nYou have now " + newHP + " health\n");
+        }
+        else if (potionHP == 0)
+        {
+            System.out.println("Oops! This potion is out of dato... no efficience...\n");
+        }
+        else
+        {
+            System.out.println("You've healed. You have now " + newHP + " health\n");
+        }
+
+        player.setHealth(newHP);
+    }
+
 }
