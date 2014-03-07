@@ -121,7 +121,7 @@ public class GameLogic
         }
         else if (potionHP == 0)
         {
-            System.out.println("Oops! This potion is out of dato... no efficience...\n");
+            System.out.println("Oops! This potion is out of dato... no efficiency...\n");
         }
         else
         {
