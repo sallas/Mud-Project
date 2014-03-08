@@ -6,14 +6,16 @@ public class Monster
     private int health;
     private int damage;
     private String name;
+    private int xp;
 
-    public Monster(int health, int damage, String name)
+    public Monster(int health, int damage, String name, int xp)
     {
         this.health = health;
         this.damage = damage;
         this.name = name;
+        this.xp = xp;
     }
-       
+         
     public int getHealth()
     {
         return health;
@@ -38,6 +40,14 @@ public class Monster
     {
         this.damage = damage;
     }
-    
-    
+
+    public int getXp()
+    {
+        return xp;
+    }
+
+    public void setXp(int xp)
+    {
+        this.xp = xp;
+    }  
 }

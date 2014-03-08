@@ -101,12 +101,14 @@ public class GameLogic
 
     private void fightMonster(Monster monster)
     {
-
-        monster.setHealth(monster.getHealth() - player.getDamage());
-        System.out.println("You dealt " + player.getDamage() + " to " + monster.getName());
+        int damage = player.getDamage();
+        monster.setHealth(monster.getHealth() - damage);
+        System.out.println("You dealt " + damage + " to " + monster.getName());
         if (monster.getHealth() <= 0)
         {
             System.out.println("\nYou have slayed " + monster.getName());
+            if(player.giveXp(monster.getXp()))  // if leveled up
+                System.out.println("You leveled up, your level is now " + player.getLevel());
         }
         else
         {

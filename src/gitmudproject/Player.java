@@ -1,19 +1,55 @@
 package gitmudproject;
 
+import java.util.Random;
+
 public class Player
 {
     
     private int health;
     private int maxHealth;
     private Room currentRoom;
-    private int damage;
+    private int weaponDamage;
+    private int currentXp;
+    private int maxXp;
+    private int level;
+    private int baseDamage;
 
  
     public Player()
     {
         maxHealth = 100;
         health = maxHealth;
-        damage = 10;
+        weaponDamage = 10;
+        currentXp = 0;
+        maxXp = 100;
+        level = 1;
+        baseDamage = 0;
+    }
+    
+    public boolean giveXp(int xp)
+    {
+        boolean leveledUp = false;
+        currentXp += xp;
+        while(currentXp >= maxXp)
+        {
+            levelUp();
+            currentXp -= maxXp;
+            maxXp *= 2;  
+            leveledUp = true;
+        }
+        return leveledUp;
+    }
+    
+    private void levelUp()
+    {
+        level++;
+        baseDamage++;
+    }
+    
+    public int getDamage()
+    {
+        Random rand = new Random();
+        return weaponDamage + baseDamage + rand.nextInt(10);
     }
     
     public int getHealth()
@@ -36,14 +72,14 @@ public class Player
         this.currentRoom = currentRoom;
     }
 
-    public int getDamage()
+    public int getWeaponDamage()
     {
-        return damage;
+        return weaponDamage;
     }
 
-    public void setDamage(int damage)
+    public void setWeaponDamage(int weaponDamage)
     {
-        this.damage = damage;
+        this.weaponDamage = weaponDamage;
     }
 
     public int getMaxHealth()
@@ -55,8 +91,35 @@ public class Player
     {
         this.maxHealth = maxHealth;
     }
-    
-    
 
-    
+    public int getCurrentXp()
+    {
+        return currentXp;
+    }
+
+
+    public int getMaxXp()
+    {
+        return maxXp;
+    } 
+
+    public int getLevel()
+    {
+        return level;
+    }
+
+    public void setLevel(int level)
+    {
+        this.level = level;
+    }
+
+    public int getBaseDamage()
+    {
+        return baseDamage;
+    }
+
+    public void setBaseDamage(int baseDamage)
+    {
+        this.baseDamage = baseDamage;
+    }
 }

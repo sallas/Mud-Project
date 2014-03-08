@@ -46,8 +46,9 @@ public class MonsterLogic
             String monsterName = monsterBigNames.get(ran.nextInt(4));
             int monsterHP = ran.nextInt(40) + 20;
             int monsterDMG = ran.nextInt(30) + 20;
+            int xp = monsterHP + monsterDMG + ran.nextInt(60);
 
-            return (new Monster(monsterHP, monsterDMG, monsterName));
+            return (new Monster(monsterHP, monsterDMG, monsterName, xp));
 
         }
         else
@@ -57,8 +58,9 @@ public class MonsterLogic
             String monsterName = monsterCommonNames.get(ran.nextInt(5));
             int monsterHP = ran.nextInt(20) + 10;
             int monsterDMG = ran.nextInt(10) + 5;
-
-            return (new Monster(monsterHP, monsterDMG, monsterName));
+            int xp = monsterHP + monsterDMG + ran.nextInt(22);
+            
+            return (new Monster(monsterHP, monsterDMG, monsterName, xp));
         }
     }
 }
