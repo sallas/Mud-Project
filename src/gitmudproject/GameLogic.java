@@ -31,7 +31,7 @@ public class GameLogic
             this.monster = monsterLogic.createRandomMonster(roomNum);
 
             room = new Room(monster);
-            System.out.println("You see a " + monster.getName() + " which has " + monster.getHealth() + " health");
+            System.out.println("You see a " + monster.getName() + " it has " + monster.getHealth() + " health");
             if (engagetMonster(monster) != true)
             {
                 break;              // Player died
@@ -77,7 +77,7 @@ public class GameLogic
                         }
                         break;
                     case 3:
-                        System.out.println("That feature is not implemented");
+                        System.out.println("This feature is not implemented");
                         break;
                     default:
                         System.out.println("That wasn't an option");
@@ -94,7 +94,7 @@ public class GameLogic
     {
         int monsterDamage = monster.getDamage(roomNum);
         player.setHealth(player.getHealth() - monsterDamage);
-        System.out.println(monster.getName() + " dealt " + monsterDamage + " to you");
+        System.out.println(monster.getName() + " dealt " + monsterDamage + " damage to you");
         if (player.getHealth() <= 0)
         {
             System.out.println("\nYou died");
@@ -109,13 +109,14 @@ public class GameLogic
     {
         int damage = player.getDamage();
         monster.setHealth(monster.getHealth() - damage);
-        System.out.println("You dealt " + damage + " to " + monster.getName());
+        System.out.println("You dealt " + damage + " damage to " + monster.getName());
+        System.out.println(monster.getName()+ " Has " + monster.getHealth()+" hp left");
         if (monster.getHealth() <= 0)
         {
-            System.out.println("\nYou have slayed " + monster.getName());
+            System.out.println("\nYou have slain " + monster.getName());
             if (player.giveXp(monster.getXp()))  // if leveled up
             {
-                System.out.println("You leveled up, your level is now " + player.getLevel());
+                System.out.println("You leveled up!, you're now level " + player.getLevel());
             }
         }
         else
@@ -128,7 +129,7 @@ public class GameLogic
     private void drinkPotion()
     {
         Potion potion = potionLogic.createPotion();
-        System.out.println("\nYou'are drinking " + potion.getPotionName());
+        System.out.println("\nYou just drank a " + potion.getPotionName());
 
         int currentHP = player.getHealth();
         int potionHP = potion.getHealingpoint();
@@ -140,15 +141,15 @@ public class GameLogic
 
         if (potionHP < 0)
         {
-            System.out.println("It was a poisoned potion! You've lost " + potionHP + " health!  \nYou have now " + newHP + " health\n");
+            System.out.println("The potion was actually a poison, aahh! you just lost" + potionHP + " health!  \nYou only have " + newHP + " hp left :(\n");
         }
         else if (potionHP == 0)
         {
-            System.out.println("Oops! This potion is out of dato... no efficiency...\n");
+            System.out.println("Oops! It seems the potion was made by Tobias the alchemist of Chelmor, First Brewer of Hva Enterprises... it doesn't work, surprise!...\n");
         }
         else
         {
-            System.out.println("You've healed. You have now " + newHP + " health\n");
+            System.out.println("You have gained " + newHP + " health.\n");
         }
 
         player.setHealth(newHP);
