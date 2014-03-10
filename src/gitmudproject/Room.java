@@ -4,6 +4,11 @@ public class Room
 {
     Monster monster;
 
+    public Room(int roomNum)
+    {
+        MonsterLogic monsterLogic = new MonsterLogic();
+        monster = monsterLogic.createRandomMonster(roomNum);
+    }
     public Room(Monster monster)
     {
         this.monster = monster;
