@@ -1,8 +1,10 @@
 package gitmudproject;
 
+import java.util.Random;
 
 public class Monster
 {
+
     private int health;
     private int damage;
     private String name;
@@ -15,7 +17,7 @@ public class Monster
         this.name = name;
         this.xp = xp;
     }
-         
+
     public int getHealth()
     {
         return health;
@@ -25,15 +27,38 @@ public class Monster
     {
         this.health = health;
     }
-    
+
     public String getName()
     {
         return name;
     }
 
-    public int getDamage()
+    public int getDamage(int roomNum)
     {
-        return damage;
+        Random ran = new Random();
+
+        int maxDamage = damage;
+        int level = roomNum;
+        int levelSubtraction=0;
+        level++;
+//        if (level == 0)
+//        {
+//            System.out.println("skriver level 2. "+level);
+//            level++;
+//        }
+        while(levelSubtraction<=0)
+        {
+            levelSubtraction = ran.nextInt(level)+1;
+        }
+        int minimum  = maxDamage - (maxDamage/ levelSubtraction);
+        
+        
+        if(minimum == maxDamage)
+            minimum = (int) (minimum * 0.8);// if minimum is not change it is subtracted 10%
+
+        int newDamage = maxDamage - minimum;
+
+        return newDamage;
     }
 
     public void setDamage(int damage)
@@ -49,5 +74,6 @@ public class Monster
     public void setXp(int xp)
     {
         this.xp = xp;
-    }  
+    }
+
 }

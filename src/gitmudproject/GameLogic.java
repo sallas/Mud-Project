@@ -10,6 +10,7 @@ public class GameLogic
     private MonsterLogic monsterLogic;
     private PotionLogic potionLogic;
     private Monster monster;
+    int roomNum = 0; //just for testing 
 
     public void startGame(Player player)
     {
@@ -22,7 +23,7 @@ public class GameLogic
 
     public void runGame()
     {
-        int roomNum = 0; //just for testing 
+
         Scanner scan = new Scanner(System.in);
         while (player.getHealth() > 0)
         {
@@ -66,10 +67,14 @@ public class GameLogic
                         break;
                     case 2:
                         drinkPotion();
-                        if(player.getHealth() <= 0)
+                        if (player.getHealth() <= 0)
+                        {
                             System.out.println("\nYou died!");
+                        }
                         else
+                        {
                             attackedByMonster(monster);
+                        }
                         break;
                     case 3:
                         System.out.println("That feature is not implemented");
@@ -84,11 +89,12 @@ public class GameLogic
         }
         return player.getHealth() > 0;  // return true if player is alive
     }
-    
+
     private void attackedByMonster(Monster monster)
     {
-        player.setHealth(player.getHealth() - monster.getDamage());
-        System.out.println(monster.getName() + " dealt " + monster.getDamage() + " to you");
+        int monsterDamage = monster.getDamage(roomNum);
+        player.setHealth(player.getHealth() - monsterDamage);
+        System.out.println(monster.getName() + " dealt " + monsterDamage + " to you");
         if (player.getHealth() <= 0)
         {
             System.out.println("\nYou died");
@@ -107,8 +113,10 @@ public class GameLogic
         if (monster.getHealth() <= 0)
         {
             System.out.println("\nYou have slayed " + monster.getName());
-            if(player.giveXp(monster.getXp()))  // if leveled up
+            if (player.giveXp(monster.getXp()))  // if leveled up
+            {
                 System.out.println("You leveled up, your level is now " + player.getLevel());
+            }
         }
         else
         {
@@ -120,13 +128,15 @@ public class GameLogic
     private void drinkPotion()
     {
         Potion potion = potionLogic.createPotion();
-        System.out.println("\nYou'are drinking "+ potion.getPotionName() );
+        System.out.println("\nYou'are drinking " + potion.getPotionName());
 
         int currentHP = player.getHealth();
         int potionHP = potion.getHealingpoint();
         int newHP = currentHP + potionHP;
-        if(newHP > player.getMaxHealth())
+        if (newHP > player.getMaxHealth())
+        {
             newHP = player.getMaxHealth();
+        }
 
         if (potionHP < 0)
         {
