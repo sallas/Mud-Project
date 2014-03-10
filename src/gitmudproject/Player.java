@@ -30,7 +30,7 @@ public class Player
     {
         boolean leveledUp = false;
         currentXp += xp;
-        while(currentXp >= maxXp)
+        while(currentXp >= maxXp)  //levels player as long as he is over xp threshold
         {
             levelUp();
             currentXp -= maxXp;
@@ -40,7 +40,7 @@ public class Player
         return leveledUp;
     }
     
-    private void levelUp()
+    private void levelUp()  //increases stats
     {
         level++;
         baseDamage++;

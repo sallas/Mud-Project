@@ -38,18 +38,13 @@ public class Monster
         Random ran = new Random();
 
         int maxDamage = damage;
-        int level = roomNum;
-        int levelSubtraction=0;
-        level++;
-//        if (level == 0)
-//        {
-//            System.out.println("skriver level 2. "+level);
-//            level++;
-//        }
-        while(levelSubtraction<=0)
-        {
-            levelSubtraction = ran.nextInt(level)+1;
-        }
+        int level;
+        if(roomNum < 2)
+            level = 2;
+        else
+            level = roomNum;
+        
+        int levelSubtraction = ran.nextInt(level)+1;
         int minimum  = maxDamage - (maxDamage/ levelSubtraction);
         
         

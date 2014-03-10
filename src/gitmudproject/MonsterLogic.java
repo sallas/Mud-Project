@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class MonsterLogic
 {
+
     private ArrayList<String> monsterCommonNames;
     private ArrayList<String> monsterBigNames;
 
@@ -39,28 +40,21 @@ public class MonsterLogic
     public Monster createRandomMonster(int roomNum)
     {
         Random ran = new Random();
+        String monsterName;
         if (roomNum > 3)
         {
-            //== Creates an monster with random name and HP 20-39
-            //== and damage 20-29
-            String monsterName = monsterBigNames.get(ran.nextInt(4));
-            int monsterHP = ran.nextInt(40) + 20;
-            int monsterDMG = ran.nextInt(30) + 20;
-            int xp = monsterHP + monsterDMG + ran.nextInt(60);
+            monsterName = monsterBigNames.get(ran.nextInt(4));
 
-            return (new Monster(monsterHP, monsterDMG, monsterName, xp));
-
-        }
-        else
+        } else
         {
-            //== Creates an monster with random name and HP 10-19
-            //== and damage 5-14
-            String monsterName = monsterCommonNames.get(ran.nextInt(5));
-            int monsterHP = ran.nextInt(20) + 10;
-            int monsterDMG = ran.nextInt(10) + 5;
-            int xp = monsterHP + monsterDMG + ran.nextInt(22);
-            
-            return (new Monster(monsterHP, monsterDMG, monsterName, xp));
+            monsterName = monsterCommonNames.get(ran.nextInt(5));
+
         }
+        //hp, dmg and xp grows with higher roomNum
+        int monsterHP = ran.nextInt(30 + (roomNum * 3)) + 10 + roomNum;  
+        int monsterDMG = ran.nextInt(10 + (roomNum * 3)) + 5 + roomNum;
+        int xp = monsterHP + monsterDMG + ran.nextInt(60);
+
+        return (new Monster(monsterHP, monsterDMG, monsterName, xp));
     }
 }
