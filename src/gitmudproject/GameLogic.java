@@ -1,5 +1,6 @@
 package gitmudproject;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class GameLogic
@@ -8,12 +9,14 @@ public class GameLogic
     private Player player;
     private Room currentRoom;
     private PotionLogic potionLogic;
+    private WeaponList weaponList;
     private Monster monster;
-    int roomNum = 0; 
+    int roomNum = 0;
 
     public void startGame(Player player)
     {
         potionLogic = new PotionLogic();
+        weaponList = new WeaponList();
         this.player = player;
         System.out.println("Welcome player");
 
@@ -37,9 +40,11 @@ public class GameLogic
             if ("n".equalsIgnoreCase(scan.next()))
             {
                 System.out.println("Are you don't want to continue?(y/n)");
-                if("y".equalsIgnoreCase(scan.next()))
+                if ("y".equalsIgnoreCase(scan.next()))
+                {
                     break;
-            }            
+                }
+            }
             roomNum++; // getting the number and harder monster
             System.out.println("\n\n");
 
@@ -57,7 +62,7 @@ public class GameLogic
             {
                 done = true;
                 System.out.println("What would you like to do(write the corresponding number)"
-                        + "         \n1: Attack\n2: Drink potion\n3: Use spell");
+                        + "         \n1: Attack\n2: Drink potion\n3: Use spell\n4: Use weapon");
                 int option = scan.nextInt();
                 switch (option)
                 {
@@ -69,7 +74,8 @@ public class GameLogic
                         if (player.getHealth() <= 0)
                         {
                             System.out.println("\nYou died!");
-                        } else
+                        }
+                        else
                         {
                             attackedByMonster(monster);
                         }
@@ -77,6 +83,11 @@ public class GameLogic
                     case 3:
                         System.out.println("This feature is not implemented");
                         break;
+
+                    case 4:
+                        useWeapon();
+                        break;
+
                     default:
                         System.out.println("That wasn't an option");
                         done = false;
@@ -96,7 +107,8 @@ public class GameLogic
         if (player.getHealth() <= 0)
         {
             System.out.println("\nYou died");
-        } else
+        }
+        else
         {
             System.out.println("You've got " + player.getHealth() + " health remaining\n");
         }
@@ -114,7 +126,8 @@ public class GameLogic
             {
                 System.out.println("You leveled up!, you're now level " + player.getLevel());
             }
-        } else
+        }
+        else
         {
             System.out.println(monster.getName() + " Has " + monster.getHealth() + " hp left");
             attackedByMonster(monster);
@@ -138,15 +151,48 @@ public class GameLogic
         if (potionHP < 0)
         {
             System.out.println("The potion was actually a poison, aahh! you just lost" + potionHP + " health!  \nYou only have " + newHP + " hp left :(\n");
-        } else if (potionHP == 0)
+        }
+        else if (potionHP == 0)
         {
             System.out.println("Oops! It seems the potion was made by Tobias the alchemist of Chelmor, First Brewer of Hva Enterprises... it doesn't work, surprise!...\n");
-        } else
+        }
+        else
         {
             System.out.println("You have gained " + newHP + " health.\n");
         }
 
         player.setHealth(newHP);
+    }
+
+    private void useWeapon()
+    {
+        Weapon weapon = weaponList.createWeapon();
+
+        String weaponName = weapon.getName();
+        System.out.println("You'are attacking with " + weaponName);
+        int weaponDamage = weaponList.getDamage(weaponName);
+        player.setWeaponDamage(weaponDamage);
+
+        int remainingUse = weapon.getNumberOfUse();
+        if (remainingUse == 0)
+        {
+            System.out.println("This weapon is broken. You cannot use this... damn");
+            player.setWeaponDamage(0);
+        }
+        else
+        {
+            weapon.setNumberOfUse(remainingUse - 1);
+            if (remainingUse == 1)
+            {
+                System.out.println("You have used up this weapon.");
+
+            }
+            else
+            {
+                System.out.println("The remaining use of " + weaponName + " is " + weapon.getNumberOfUse());
+            }
+        }
+        fightMonster(monster);
     }
 
 }
