@@ -11,6 +11,12 @@ public class Potion
         this.healingpoint = healingpoint;
         this.potionName = potionName;
     }
+    
+    @Override
+    public String toString()
+    {
+        return potionName + "\t" + healingpoint;
+    }
 
     public int getHealingpoint()
     {

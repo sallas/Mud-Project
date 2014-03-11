@@ -11,7 +11,8 @@ public class GameLogic
     private PotionLogic potionLogic;
     private WeaponList weaponList;
     private Monster monster;
-    int roomNum = 0;
+    private int roomNum = 0;
+    private Inventory inventory;
 
     public void startGame(Player player)
     {
@@ -19,6 +20,7 @@ public class GameLogic
         weaponList = new WeaponList();
         this.player = player;
         System.out.println("Welcome player");
+        inventory = new Inventory();
 
     }
 
@@ -62,7 +64,8 @@ public class GameLogic
             {
                 done = true;
                 System.out.println("What would you like to do(write the corresponding number)"
-                        + "         \n1: Attack\n2: Drink potion\n3: Use spell\n4: Use weapon");
+                        + "\n1: Attack\n2: Drink potion\n3: Use spell\n4: Use weapon"
+                        + "\n5: Display inventory");
                 int option = scan.nextInt();
                 switch (option)
                 {
@@ -74,7 +77,7 @@ public class GameLogic
                         if (player.getHealth() <= 0)
                         {
                             System.out.println("\nYou died!");
-                        } 
+                        }
                         else
                         {
                             attackedByMonster(monster);
@@ -87,7 +90,9 @@ public class GameLogic
                     case 4:
                         useWeapon();
                         break;
-
+                    case 5:
+                        displayInventory();
+                        break;
                     default:
                         System.out.println("That wasn't an option");
                         done = false;
@@ -107,7 +112,7 @@ public class GameLogic
         if (player.getHealth() <= 0)
         {
             System.out.println("\nYou died");
-        } 
+        }
         else
         {
             System.out.println("You've got " + player.getHealth() + " health remaining\n");
@@ -126,7 +131,7 @@ public class GameLogic
             {
                 System.out.println("You leveled up!, you're now level " + player.getLevel());
             }
-        } 
+        }
         else
         {
             System.out.println(monster.getName() + " Has " + monster.getHealth() + " hp left");
@@ -151,10 +156,12 @@ public class GameLogic
         if (potionHP < 0)
         {
             System.out.println("The potion was actually a poison, aahh! you just lost" + potionHP + " health!  \nYou only have " + newHP + " hp left :(\n");
-        } else if (potionHP == 0)
+        }
+        else if (potionHP == 0)
         {
             System.out.println("Oops! It seems the potion was made by Tobias the alchemist of Chelmor, First Brewer of Hva Enterprises... it doesn't work, surprise!...\n");
-        } else
+        }
+        else
         {
             System.out.println("You have gained " + newHP + " health.\n");
         }
@@ -168,7 +175,8 @@ public class GameLogic
         if (player.hasWeapon())
         {
             weapon = player.getWeapon();
-        } else
+        }
+        else
         {
             weapon = weaponList.createWeapon();
             player.equipWeapon(weapon);
@@ -184,19 +192,48 @@ public class GameLogic
         {
             System.out.println("The weapon is broke. You cannot use this anymore");
             player.unEquipWeapon();
-        } 
+        }
         else
         {
             if (remainingUse == 1)
             {
                 System.out.println("You have one more use of this weapon.");
 
-            } else
+            }
+            else
             {
                 System.out.println("The remaining use of " + weapon.getName() + " is " + weapon.getNumberOfUse());
             }
         }
 
+    }
+
+    private void displayInventory()
+    {
+        Scanner scan = new Scanner(System.in);
+        boolean done = false;
+        while (!done)
+        {
+            done = true;
+            System.out.println("What would you like to look at(write the corresponding number)"
+                    + "         \n1: Weapons\n2: Potions");
+            int option = scan.nextInt();
+            switch (option)
+            {
+                case 1:
+                    System.out.println("Name\t\tDamage\tDurability");
+                    System.out.println(inventory.weaponsDisplayText());
+                    break;
+                case 2:
+                    System.out.println("Name\t\tHealing points");
+                    System.out.println(inventory.potionDisplayText());
+                    break;
+                default:
+                    System.out.println("That wasn't an option");
+                    done = false;
+                    break;
+            }
+        }
     }
 
 }

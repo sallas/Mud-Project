@@ -13,6 +13,12 @@ public class Weapon
         this.name = name;
         this.damage = damage;
     }
+    
+    @Override
+    public String toString()
+    {
+        return name + "\t" + damage + "\t" + numberOfUse;
+    }
 
     public int getNumberOfUse()
     {
