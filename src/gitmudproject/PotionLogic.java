@@ -16,11 +16,11 @@ public class PotionLogic
 
     private ArrayList<String> setUpPotion()
     {
-        potionNameArray.add("Potion Angel");
-        potionNameArray.add("Potion Flower");
-        potionNameArray.add("Potion Light");
-        potionNameArray.add("Potion Sky");
-        potionNameArray.add("Potion Sun");
+        potionNameArray.add("Angel Potion");
+        potionNameArray.add("Flower Potion");
+        potionNameArray.add("Light Potion");
+        potionNameArray.add("Sky Potion");
+        potionNameArray.add("Sun Potion");
 
         return potionNameArray;
     }

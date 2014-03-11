@@ -57,6 +57,7 @@ public class GameLogic
     private boolean engagetMonster(Monster monster)
     {
         Scanner scan = new Scanner(System.in);
+        System.out.println("You've got " + player.getHealth() + " health remaining\n");
         while (player.getHealth() > 0 && monster.getHealth() > 0)
         {
             boolean done = false;
@@ -155,7 +156,7 @@ public class GameLogic
 
         if (potionHP < 0)
         {
-            System.out.println("The potion was actually a poison, aahh! you just lost" + potionHP + " health!  \nYou only have " + newHP + " hp left :(\n");
+            System.out.println("The potion was actually a poison, aahh! you just lost " + potionHP + " health!  \nYou only have " + newHP + " hp left :(\n");
         }
         else if (potionHP == 0)
         {
