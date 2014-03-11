@@ -74,7 +74,7 @@ public class GameLogic
                         if (player.getHealth() <= 0)
                         {
                             System.out.println("\nYou died!");
-                        }
+                        } 
                         else
                         {
                             attackedByMonster(monster);
@@ -107,7 +107,7 @@ public class GameLogic
         if (player.getHealth() <= 0)
         {
             System.out.println("\nYou died");
-        }
+        } 
         else
         {
             System.out.println("You've got " + player.getHealth() + " health remaining\n");
@@ -126,7 +126,7 @@ public class GameLogic
             {
                 System.out.println("You leveled up!, you're now level " + player.getLevel());
             }
-        }
+        } 
         else
         {
             System.out.println(monster.getName() + " Has " + monster.getHealth() + " hp left");
@@ -151,12 +151,10 @@ public class GameLogic
         if (potionHP < 0)
         {
             System.out.println("The potion was actually a poison, aahh! you just lost" + potionHP + " health!  \nYou only have " + newHP + " hp left :(\n");
-        }
-        else if (potionHP == 0)
+        } else if (potionHP == 0)
         {
             System.out.println("Oops! It seems the potion was made by Tobias the alchemist of Chelmor, First Brewer of Hva Enterprises... it doesn't work, surprise!...\n");
-        }
-        else
+        } else
         {
             System.out.println("You have gained " + newHP + " health.\n");
         }
@@ -166,33 +164,39 @@ public class GameLogic
 
     private void useWeapon()
     {
-        Weapon weapon = weaponList.createWeapon();
+        Weapon weapon;
+        if (player.hasWeapon())
+        {
+            weapon = player.getWeapon();
+        } else
+        {
+            weapon = weaponList.createWeapon();
+            player.equipWeapon(weapon);
+        }
 
-        String weaponName = weapon.getName();
-        System.out.println("You'are attacking with " + weaponName);
-        int weaponDamage = weaponList.getDamage(weaponName);
-        player.setWeaponDamage(weaponDamage);
+        System.out.println("You'are attacking with " + weapon.getName());
+        int weaponDamage = weapon.getDamage();
 
+        fightMonster(monster);
         int remainingUse = weapon.getNumberOfUse();
+        weapon.setNumberOfUse(remainingUse - 1);
         if (remainingUse == 0)
         {
-            System.out.println("This weapon is broken. You cannot use this... damn");
-            player.setWeaponDamage(0);
-        }
+            System.out.println("The weapon is broke. You cannot use this anymore");
+            player.unEquipWeapon();
+        } 
         else
         {
-            weapon.setNumberOfUse(remainingUse - 1);
             if (remainingUse == 1)
             {
-                System.out.println("You have used up this weapon.");
+                System.out.println("You have one more use of this weapon.");
 
-            }
-            else
+            } else
             {
-                System.out.println("The remaining use of " + weaponName + " is " + weapon.getNumberOfUse());
+                System.out.println("The remaining use of " + weapon.getName() + " is " + weapon.getNumberOfUse());
             }
         }
-        fightMonster(monster);
+
     }
 
 }

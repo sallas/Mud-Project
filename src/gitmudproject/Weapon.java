@@ -5,11 +5,13 @@ public class Weapon
 
     int numberOfUse;
     String name;
+    int damage;
 
-    public Weapon(int maxUse, String name)
+    public Weapon(int maxUse, String name, int damage)
     {
         this.numberOfUse = maxUse;
         this.name = name;
+        this.damage = damage;
     }
 
     public int getNumberOfUse()
@@ -31,5 +33,17 @@ public class Weapon
     {
         this.name = name;
     }
+
+    public int getDamage()
+    {
+        return damage;
+    }
+
+    public void setDamage(int damage)
+    {
+        this.damage = damage;
+    }
+    
+    
 
 }

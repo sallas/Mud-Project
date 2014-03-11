@@ -13,6 +13,7 @@ public class Player
     private int maxXp;
     private int level;
     private int baseDamage;
+    private Weapon weapon;
 
  
     public Player()
@@ -24,6 +25,22 @@ public class Player
         maxXp = 100;
         level = 1;
         baseDamage = 0;
+        weapon = null;
+    }
+    
+    void equipWeapon(Weapon weapon)
+    {
+        this.weapon = weapon;
+    }
+    
+    boolean hasWeapon()
+    {
+        return weapon != null;
+    }
+    
+    void unEquipWeapon()
+    {
+        weapon = null;
     }
     
     public boolean giveXp(int xp)
@@ -49,7 +66,12 @@ public class Player
     public int getDamage()
     {
         Random rand = new Random();
-        return weaponDamage + baseDamage + rand.nextInt(10);
+        int extraDamage = 0;
+        if(weapon != null)
+        {
+            extraDamage = weapon.getDamage();
+        }
+        return weaponDamage + baseDamage + rand.nextInt(10) + extraDamage;
     }
     
     public int getHealth()
@@ -121,5 +143,10 @@ public class Player
     public void setBaseDamage(int baseDamage)
     {
         this.baseDamage = baseDamage;
+    }
+
+    public Weapon getWeapon()
+    {
+        return weapon;
     }
 }
