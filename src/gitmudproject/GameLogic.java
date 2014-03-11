@@ -164,7 +164,7 @@ public class GameLogic
         }
         else
         {
-            System.out.println("You have gained " + newHP + " health.\n");
+            System.out.println("You have gained " + potionHP + " health.\n");
         }
 
         player.setHealth(newHP);
