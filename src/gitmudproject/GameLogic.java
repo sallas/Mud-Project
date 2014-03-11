@@ -162,9 +162,15 @@ public class GameLogic
         {
             System.out.println("Oops! It seems the potion was made by Tobias the alchemist of Chelmor, First Brewer of Hva Enterprises... it doesn't work, surprise!...\n");
         }
+        else if (newHP == player.getMaxHealth())
+        {
+            System.out.println("You have " + newHP + " health now. You are totally healthy!");
+        }
         else
         {
+
             System.out.println("You have gained " + potionHP + " health.\n");
+
         }
 
         player.setHealth(newHP);
