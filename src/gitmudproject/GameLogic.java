@@ -78,14 +78,13 @@ public class GameLogic
                         if (player.getHealth() <= 0)
                         {
                             System.out.println("\nYou died!");
-                        }
-                        else
+                        } else
                         {
                             attackedByMonster(monster);
                         }
                         break;
                     case 3:
-                        System.out.println("This feature is not implemented");
+                        castSpell();
                         break;
 
                     case 4:
@@ -113,8 +112,7 @@ public class GameLogic
         if (player.getHealth() <= 0)
         {
             System.out.println("\nYou died");
-        }
-        else
+        } else
         {
             System.out.println("You've got " + player.getHealth() + " health remaining\n");
         }
@@ -123,7 +121,7 @@ public class GameLogic
     private void fightMonster(Monster monster)
     {
         int damage = player.getDamage();
-        
+
         monster.setHealth(monster.getHealth() - damage);
         System.out.println("You dealt " + damage + " damage to " + monster.getName());
         if (monster.getHealth() <= 0)
@@ -133,8 +131,7 @@ public class GameLogic
             {
                 System.out.println("You leveled up!, you're now level " + player.getLevel());
             }
-        }
-        else
+        } else
         {
             System.out.println(monster.getName() + " Has " + monster.getHealth() + " hp left");
             attackedByMonster(monster);
@@ -158,16 +155,13 @@ public class GameLogic
         if (potionHP < 0)
         {
             System.out.println("The potion was actually a poison, aahh! you just lost " + potionHP + " health!  \nYou only have " + newHP + " hp left :(\n");
-        }
-        else if (potionHP == 0)
+        } else if (potionHP == 0)
         {
             System.out.println("Oops! It seems the potion was made by Tobias the alchemist of Chelmor, First Brewer of Hva Enterprises... it doesn't work, surprise!...\n");
-        }
-        else if (newHP == player.getMaxHealth())
+        } else if (newHP == player.getMaxHealth())
         {
             System.out.println("You have " + newHP + " health now. You are totally healthy!");
-        }
-        else
+        } else
         {
 
             System.out.println("You have gained " + potionHP + " health.\n");
@@ -177,14 +171,61 @@ public class GameLogic
         player.setHealth(newHP);
     }
 
+    private void castSpell()
+    {
+        System.out.println("Which spell would you like to use?\n1: Fireball: 20dmg \n2: Heal: 25hp");
+        Scanner scan = new Scanner(System.in);
+        boolean done = false;
+        while (!done)
+        {
+            done = true;
+            int option = scan.nextInt();
+            switch (option)
+            {
+                case 1:
+                    monster.setHealth(monster.getHealth() - player.fireBall());
+                    System.out.println("You dealt " + player.fireBall() + " damage to " + monster.getName());
+                    if (monster.getHealth() <= 0)
+                    {
+                        System.out.println("\nYou have slain " + monster.getName());
+                        if (player.giveXp(monster.getXp()))  // if leveled up
+                        {
+                            System.out.println("You leveled up!, you're now level " + player.getLevel());
+                        }
+                    }
+                    else
+                    {
+                        System.out.println(monster.getName() + " Has " + monster.getHealth() + " hp left");
+                        attackedByMonster(monster);
+                    }
+                    break;
+                case 2:
+                    if ((player.getHealth()+player.Heal()) >= 100)
+                    {
+                        player.setHealth(100);
+                        System.out.println("You have "+player.getHealth()+" hp");
+                    }
+                    else
+                    {
+                    player.setHealth(player.getHealth()+player.Heal());
+                    System.out.println("You have received: "+ player.getHealth() + " hp");
+                    }
+                    break;
+                default:
+                    System.out.println("That wasn't an option");
+                    done = false;
+                    break;
+            }
+        }
+    }
+
     private void useWeapon()
     {
         Weapon weapon;
         if (player.hasWeapon())
         {
             weapon = player.getWeapon();
-        }
-        else
+        } else
         {
             weapon = weaponList.createWeapon();
             player.equipWeapon(weapon);
@@ -200,15 +241,13 @@ public class GameLogic
         {
             System.out.println("The weapon is broke. You cannot use this anymore");
             player.unEquipWeapon();
-        }
-        else
+        } else
         {
             if (remainingUse == 1)
             {
                 System.out.println("You have one more use of this weapon.");
 
-            }
-            else
+            } else
             {
                 System.out.println("The remaining use of " + weapon.getName() + " is " + weapon.getNumberOfUse());
             }
@@ -243,5 +282,4 @@ public class GameLogic
             }
         }
     }
-
 }

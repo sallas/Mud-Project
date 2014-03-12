@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class Player
 {
+    private Spells spells;
     private Stats stats;
     private int health;
     private int maxHealth;
@@ -27,6 +28,7 @@ public class Player
         baseDamage = 0;
         weapon = null;    
         stats = new Stats(5,5,5);
+        spells = new Spells(20, 25);
     }
     
     void equipWeapon(Weapon weapon)
@@ -84,6 +86,15 @@ public class Player
             System.out.println("You dealt a critical hit");
         }
         return damage;
+    }
+    
+    public int fireBall()
+    {
+        return spells.getFireball();
+    }
+    public int Heal()
+    {
+        return spells.getHeal();
     }
     
     public int getCritChance()
