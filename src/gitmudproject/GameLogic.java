@@ -123,8 +123,17 @@ public class GameLogic
     private void fightMonster(Monster monster)
     {
         int damage = player.getDamage();
-        monster.setHealth(monster.getHealth() - damage);
-        System.out.println("You dealt " + damage + " damage to " + monster.getName());
+        Random rand = new Random();
+        if (rand.nextInt(100) < player.getCritChance())
+        {
+            monster.setHealth(monster.getHealth() - (damage*2));
+            System.out.println("You dealt a critical hit doing " + damage*2 + " damage to " + monster.getName());
+        }
+        else 
+        {
+            monster.setHealth(monster.getHealth() - damage);
+            System.out.println("You dealt " + damage + " damage to " + monster.getName());
+        }  
         if (monster.getHealth() <= 0)
         {
             System.out.println("\nYou have slain " + monster.getName());

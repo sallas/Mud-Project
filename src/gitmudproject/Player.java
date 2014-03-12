@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Player
 {
-    
+    Stats stats;
     private int health;
     private int maxHealth;
     private Room currentRoom;
@@ -25,7 +25,8 @@ public class Player
         maxXp = 100;
         level = 1;
         baseDamage = 0;
-        weapon = null;
+        weapon = null;    
+        stats = new Stats(5,5,5);
     }
     
     void equipWeapon(Weapon weapon)
@@ -51,7 +52,11 @@ public class Player
         {
             levelUp();
             currentXp -= maxXp;
-            maxXp *= 2;  
+            maxXp *= 2; 
+            stats.agility ++;
+            stats.intellect ++;
+            stats.strength ++;
+            System.out.println("Str: "+stats.strength+" Agi: "+stats.agility+" Int: "+stats.intellect);
             leveledUp = true;
         }
         return leveledUp;
@@ -72,6 +77,11 @@ public class Player
             extraDamage = weapon.getDamage();
         }
         return weaponDamage + baseDamage + rand.nextInt(10) + extraDamage;
+    }
+    
+    public int getCritChance()
+    {
+        return stats.agility;
     }
     
     public int getHealth()
