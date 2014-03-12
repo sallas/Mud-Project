@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Player
 {
-    Stats stats;
+    private Stats stats;
     private int health;
     private int maxHealth;
     private Room currentRoom;
@@ -76,7 +76,14 @@ public class Player
         {
             extraDamage = weapon.getDamage();
         }
-        return weaponDamage + baseDamage + rand.nextInt(10) + extraDamage;
+        
+        int damage = weaponDamage + baseDamage + rand.nextInt(10) + extraDamage;
+        if (rand.nextInt(100) < getCritChance())
+        {
+            damage *= 2;
+            System.out.println("You dealt a critical hit");
+        }
+        return damage;
     }
     
     public int getCritChance()
