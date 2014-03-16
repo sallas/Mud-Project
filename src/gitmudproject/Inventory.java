@@ -8,12 +8,12 @@ public class Inventory
 
     List<Weapon> weapons = new ArrayList<>();
     List<Potion> potions = new ArrayList<>();
-    
+
     public Inventory()
     {
         setUpStarterInventory();
     }
-    
+
     private void setUpStarterInventory()
     {
         potions.add(new Potion(20, "Healing potion"));
@@ -47,11 +47,23 @@ public class Inventory
     public String potionDisplayText()
     {
         String potionText = "";
+        int no = 1;
         for (Potion p : potions)
         {
-            potionText += p.toString() + "\n";
+            potionText += no + ": " + p.toString() + "\n";
+            no++;
         }
         return potionText;
+    }
+
+    public List<Potion> getPotions()
+    {
+        return potions;
+    }
+
+    public void setPotions(List<Potion> potions)
+    {
+        this.potions = potions;
     }
 
 }

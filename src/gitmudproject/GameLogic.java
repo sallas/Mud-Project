@@ -1,6 +1,6 @@
 package gitmudproject;
 
-import java.util.Random;
+import java.util.List;
 import java.util.Scanner;
 
 public class GameLogic
@@ -74,11 +74,21 @@ public class GameLogic
                         fightMonster(monster);
                         break;
                     case 2:
-                        drinkPotion();
+                        if (inventory.potionDisplayText().equals(""))
+                        {
+                            System.out.println("You have no potion at the moment");
+                            break;
+                        }
+                        System.out.println("Choose from the following list");
+                        System.out.println(inventory.potionDisplayText());
+                        int answer = scan.nextInt();
+                        Potion chosenPotion = choosePotion(answer - 1);
+                        drinkPotion(chosenPotion);
                         if (player.getHealth() <= 0)
                         {
                             System.out.println("\nYou died!");
-                        } else
+                        }
+                        else
                         {
                             attackedByMonster(monster);
                         }
@@ -112,7 +122,8 @@ public class GameLogic
         if (player.getHealth() <= 0)
         {
             System.out.println("\nYou died");
-        } else
+        }
+        else
         {
             System.out.println("You've got " + player.getHealth() + " health remaining\n");
         }
@@ -131,7 +142,8 @@ public class GameLogic
             {
                 System.out.println("You leveled up!, you're now level " + player.getLevel());
             }
-        } else
+        }
+        else
         {
             System.out.println(monster.getName() + " Has " + monster.getHealth() + " hp left");
             attackedByMonster(monster);
@@ -139,9 +151,19 @@ public class GameLogic
 
     }
 
-    private void drinkPotion()
+    private Potion choosePotion(int number)
     {
-        Potion potion = potionLogic.createPotion();
+        List<Potion> potionList = inventory.getPotions();
+
+        return potionList.get(number);
+    }
+
+    private void drinkPotion(Potion potion)
+    {
+        List<Potion> potionlist = inventory.getPotions();
+        potionlist.remove(potion);
+        inventory.setPotions(potionlist);
+
         System.out.println("\nYou just drank a " + potion.getPotionName());
 
         int currentHP = player.getHealth();
@@ -155,13 +177,16 @@ public class GameLogic
         if (potionHP < 0)
         {
             System.out.println("The potion was actually a poison, aahh! you just lost " + potionHP + " health!  \nYou only have " + newHP + " hp left :(\n");
-        } else if (potionHP == 0)
+        }
+        else if (potionHP == 0)
         {
             System.out.println("Oops! It seems the potion was made by Tobias the alchemist of Chelmor, First Brewer of Hva Enterprises... it doesn't work, surprise!...\n");
-        } else if (newHP == player.getMaxHealth())
+        }
+        else if (newHP == player.getMaxHealth())
         {
             System.out.println("You have " + newHP + " health now. You are totally healthy!");
-        } else
+        }
+        else
         {
 
             System.out.println("You have gained " + potionHP + " health.\n");
@@ -200,15 +225,15 @@ public class GameLogic
                     }
                     break;
                 case 2:
-                    if ((player.getHealth()+player.Heal()) >= 100)
+                    if ((player.getHealth() + player.Heal()) >= 100)
                     {
                         player.setHealth(100);
-                        System.out.println("You have "+player.getHealth()+" hp");
+                        System.out.println("You have " + player.getHealth() + " hp");
                     }
                     else
                     {
-                    player.setHealth(player.getHealth()+player.Heal());
-                    System.out.println("You have received: "+ player.getHealth() + " hp");
+                        player.setHealth(player.getHealth() + player.Heal());
+                        System.out.println("You have received: " + player.getHealth() + " hp");
                     }
                     break;
                 default:
@@ -225,7 +250,8 @@ public class GameLogic
         if (player.hasWeapon())
         {
             weapon = player.getWeapon();
-        } else
+        }
+        else
         {
             weapon = weaponList.createWeapon();
             player.equipWeapon(weapon);
@@ -241,13 +267,15 @@ public class GameLogic
         {
             System.out.println("The weapon is broke. You cannot use this anymore");
             player.unEquipWeapon();
-        } else
+        }
+        else
         {
             if (remainingUse == 1)
             {
                 System.out.println("You have one more use of this weapon.");
 
-            } else
+            }
+            else
             {
                 System.out.println("The remaining use of " + weapon.getName() + " is " + weapon.getNumberOfUse());
             }
